@@ -17,12 +17,24 @@ if ($clave !== $clave_confirm) {
     header("Location: ../cliente_registro.php");
     exit;
 }
+$sql_rol = "SELECT IDTIPO_USUARIO FROM TIPO_USUARIO WHERE NOMUSUARIO = 'Cliente' OR NOMUSUARIO = 'CLIENTE'";
+$stmt_rol = sqlsrv_query($conn, $sql_rol);
 
-// ===================================
-// ID del Rol "cliente"
-// (Basado en tu BD, el ID=1 es 'cliente')
-// ===================================
-$ID_ROL_CLIENTE = 1; 
+if ($stmt_rol === false) {
+    $_SESSION['error_registro'] = "Error interno al verificar roles.";
+    header("Location: ../cliente_registro.php"); exit;
+}
+
+$row_rol = sqlsrv_fetch_array($stmt_rol, SQLSRV_FETCH_ASSOC);
+
+if ($row_rol) {
+    $ID_ROL_CLIENTE = $row_rol['IDTIPO_USUARIO'];
+} else {
+    // Si no encuentra el rol "Cliente", detenemos todo por seguridad.
+    $_SESSION['error_registro'] = "Error de configuración: El rol 'Cliente' no existe en la base de datos. Contacte al administrador.";
+    header("Location: ../cliente_registro.php"); exit;
+}
+// ====================================================================
 
 // 2. --- INICIAR TRANSACCIÓN ---
 if (sqlsrv_begin_transaction($conn) === false) {
@@ -32,8 +44,9 @@ if (sqlsrv_begin_transaction($conn) === false) {
 
 try {
     // 3. --- PASO 1: INSERTAR EN PERSONA ---
+    // Nota: IDDISTRITO se deja NULL intencionalmente para que lo llenen luego en "Mi Cuenta"
     $params_persona = [
-        null, // IDDISTRITO (lo dejamos nulo por ahora, el cliente puede llenarlo en "Mis Datos")
+        null, // IDDISTRITO
         $_POST['idtipo_documento'],
         $_POST['nombres'],
         $_POST['apepaterno'],
@@ -53,7 +66,11 @@ try {
     
     $stmt_persona = sqlsrv_query($conn, $sql_persona, $params_persona);
     if ($stmt_persona === false) {
-        throw new Exception("Error al guardar los datos personales. Verifique que el DNI, Celular o Correo no estén duplicados.");
+        // Capturamos el error para saber si es duplicado
+        $errors = sqlsrv_errors();
+        $msg = "Error al guardar datos personales. Verifique que el DNI o Correo no estén ya registrados.";
+        if(isset($errors[0]['message'])) { $msg .= " (" . $errors[0]['message'] . ")"; }
+        throw new Exception($msg);
     }
     
     // 4. --- PASO 2: OBTENER EL IDPERSONA CREADO ---
@@ -65,34 +82,40 @@ try {
     $params_cliente = [$idPersona];
     $stmt_cliente = sqlsrv_query($conn, $sql_cliente, $params_cliente);
     if ($stmt_cliente === false) {
-        throw new Exception("Error al vincular la persona como cliente.");
+        throw new Exception("Error al crear el perfil de cliente.");
     }
 
     // 6. --- PASO 4: INSERTAR EN USUARIO ---
     $params_usuario = [
         $idPersona,
-        $ID_ROL_CLIENTE, // ID 1 = 'cliente'
+        $ID_ROL_CLIENTE, 
         $_POST['logeo'],
-        $clave, // (Sin encriptar, como acordamos)
+        $clave, 
         '1'
     ];
+    
+    // Verificamos si el usuario ya existe antes de intentar insertar
+    $check_user = sqlsrv_query($conn, "SELECT IDUSUARIO FROM USUARIO WHERE LOGEO = ?", array($_POST['logeo']));
+    if (sqlsrv_has_rows($check_user)) {
+        throw new Exception("El nombre de usuario (Logeo) ya está en uso. Por favor elige otro.");
+    }
+    
     $sql_usuario = "INSERT INTO USUARIO (IDPERSONA, IDTIPO_USUARIO, LOGEO, CLAVE, ESTADO) 
                     VALUES (?, ?, ?, ?, ?)";
     $stmt_usuario = sqlsrv_query($conn, $sql_usuario, $params_usuario);
     if ($stmt_usuario === false) {
-        throw new Exception("Error al crear la cuenta de usuario. El 'Logeo' (nombre de usuario) ya existe.");
+        throw new Exception("Error al crear la cuenta de usuario.");
     }
 
     // 7. --- COMMIT ---
     sqlsrv_commit($conn);
     $_SESSION['mensaje_registro'] = "¡Cuenta creada exitosamente! Ahora puedes iniciar sesión.";
-    header("Location: ../login.php"); // Redirigir al Login
+    header("Location: ../login.php");
     exit;
 
 } catch (Exception $e) {
     // 8. --- ROLLBACK ---
     sqlsrv_rollback($conn);
-    // Mostramos el mensaje de error específico
     $_SESSION['error_registro'] = $e->getMessage();
     header("Location: ../cliente_registro.php");
     exit;
