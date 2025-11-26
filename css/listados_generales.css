@@ -1,0 +1,391 @@
+/* ===================================
+   CSS PARA LISTADOS GENERALES (Productos, Clientes, etc.)
+   =================================== */
+
+/* Header de Página */
+.page-header {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 2rem;
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.page-description {
+    color: #666;
+    margin: 0;
+}
+
+/* Alertas Personalizadas */
+.custom-alert {
+    border-radius: 15px;
+    border: none;
+    padding: 1rem 1.5rem;
+    box-shadow: var(--shadow-sm);
+}
+
+/* Tarjeta de Búsqueda */
+.search-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow-sm);
+}
+
+.search-input-group {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    left: 1.25rem;
+    color: #999;
+    font-size: 1.1rem;
+}
+
+.search-input {
+    flex: 1;
+    padding: 0.875rem 1rem 0.875rem 3rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    font-family: var(--bs-body-font-family);
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
+}
+
+.btn-search {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    border: none;
+    padding: 0.875rem 2rem;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    font-family: var(--bs-body-font-family);
+    cursor: pointer;
+}
+
+.btn-search:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(107, 68, 35, 0.3);
+}
+
+.btn-clear-search {
+    background: #f8f9fa;
+    color: #666;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.btn-clear-search:hover {
+    background: #e9ecef;
+    color: #dc3545;
+}
+
+.search-results-info {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e0e0e0;
+}
+
+.results-badge {
+    background: linear-gradient(135deg, rgba(107, 68, 35, 0.1), rgba(212, 175, 55, 0.1));
+    color: var(--primary);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* Tarjeta de Tabla */
+
+.table-header {
+    padding: 1.5rem 2rem;
+    border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, rgba(107, 68, 35, 0.05), rgba(212, 175, 55, 0.05));
+}
+
+.table-header h5 {
+    margin: 0;
+    font-weight: 700;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+}
+
+.pagination-info {
+    background: var(--secondary);
+    color: var(--dark);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+/* Tabla General */
+.data-table {
+    margin-bottom: 0;
+    /* Bootstrap 'table'*/
+}
+
+.data-table thead th {
+    background: linear-gradient(135deg, rgba(107, 68, 35, 0.05), transparent);
+    color: var(--primary);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    padding: 1rem;
+    border: none;
+}
+
+.data-table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.data-table tbody tr:hover {
+    background: rgba(107, 68, 35, 0.03);
+}
+
+.data-table tbody td {
+    padding: 1rem;
+    vertical-align: middle;
+}
+
+/* Badges de Estado y Acciones */
+.status-badge {
+    padding: 0.375rem 0.875rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+}
+
+.status-active {
+    background: linear-gradient(135deg, rgba(40, 167, 69, 0.15), rgba(40, 167, 69, 0.05));
+    color: #28a745;
+}
+
+.status-inactive {
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.15), rgba(220, 53, 69, 0.05));
+    color: #dc3545;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.btn-action {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 2px solid;
+}
+
+.btn-edit {
+    background: rgba(13, 110, 253, 0.1);
+    border-color: rgba(13, 110, 253, 0.3);
+    color: #0d6efd;
+}
+
+.btn-edit:hover {
+    background: #0d6efd;
+    color: white;
+    transform: scale(1.1);
+}
+
+.btn-delete {
+    background: rgba(220, 53, 69, 0.1);
+    border-color: rgba(220, 53, 69, 0.3);
+    color: #dc3545;
+}
+
+.btn-delete:hover {
+    background: #dc3545;
+    color: white;
+    transform: scale(1.1);
+}
+
+.btn-activate {
+    background: rgba(40, 167, 69, 0.1);
+    border-color: rgba(40, 167, 69, 0.3);
+    color: #28a745;
+}
+
+.btn-activate:hover {
+    background: #28a745;
+    color: white;
+    transform: scale(1.1);
+}
+
+/* Paginador */
+.table-footer {
+    padding: 1.5rem 2rem;
+    border-top: 1px solid #e0e0e0;
+}
+
+/* Responsivo (para filtros y tarjetas) */
+@media (max-width: 991px) {
+    .search-input-group {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .btn-search,
+    .search-input {
+        width: 100%;
+    }
+
+    .search-icon {
+        left: 1rem;
+        top: 15px;
+    }
+
+    .btn-clear-search {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+}
+
+@media (max-width: 767px) {
+    .page-header {
+        padding: 1.5rem;
+    }
+
+    .page-title {
+        font-size: 1.5rem;
+    }
+
+    .table-header {
+        padding: 1rem;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .data-table {
+        font-size: 0.85rem;
+    }
+
+    .data-table thead th {
+        padding: 0.75rem 0.5rem;
+    }
+
+    .data-table tbody td {
+        padding: 0.75rem 0.5rem;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .btn-action {
+        width: 100%;
+    }
+
+    .table-footer {
+        padding: 1rem;
+    }
+}
+
+/* ===================================
+   KPIs (Mini Stats Cards)
+   =================================== */
+.stat-card-mini {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+}
+
+.stat-card-mini:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.stat-icon-mini {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+}
+
+.stat-content-mini h3 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--dark);
+    margin: 0;
+    line-height: 1;
+}
+
+.stat-content-mini p {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0.25rem 0 0;
+}
+
+/* Colores de fondo suaves para los iconos de KPI */
+.bg-primary-soft {
+    background: linear-gradient(135deg, rgba(107, 68, 35, 0.1), rgba(107, 68, 35, 0.05));
+    color: var(--primary);
+}
+
+.bg-success-soft {
+    background: linear-gradient(135deg, rgba(40, 167, 69, 0.1), rgba(40, 167, 69, 0.05));
+    color: #28a745;
+}
+
+.bg-info-soft {
+    background: linear-gradient(135deg, rgba(23, 162, 184, 0.1), rgba(23, 162, 184, 0.05));
+    color: #17a2b8;
+}
+
+.bg-warning-soft {
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(255, 193, 7, 0.05));
+    color: #ffc107;
+}

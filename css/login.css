@@ -1,0 +1,357 @@
+:root {
+    --primary: #6B4423;
+    --secondary: #D4AF37;
+    --accent: #8B4513;
+    --dark: #3E2723;
+}
+
+/* Tarjeta principal de login */
+.login-card {
+    background: white;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow:
+        0 20px 60px rgba(107, 68, 35, 0.15),
+        0 0 0 1px rgba(107, 68, 35, 0.05);
+    position: relative;
+    z-index: 2;
+}
+
+/* Panel Izquierdo */
+.login-left-panel {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    color: white;
+    min-height: 650px;
+}
+
+.panel-content {
+    position: relative;
+    z-index: 2;
+}
+
+.brand-section {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.brand-icon-large {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.3));
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.brand-title {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    color: white;
+}
+
+.brand-tagline {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin: 0;
+}
+
+.features-list {
+    margin-top: 2rem;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+}
+
+.feature-item i {
+    color: var(--secondary);
+    font-size: 1.3rem;
+}
+
+.decorative-box {
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.decorative-box i {
+    font-size: 4rem;
+    opacity: 0.3;
+}
+
+.panel-decoration {
+    position: absolute;
+    bottom: -50px;
+    right: -50px;
+    width: 300px;
+    height: 300px;
+    opacity: 0.1;
+    z-index: 1;
+}
+
+/* Panel Derecho - Formulario */
+.login-form-panel {
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 650px;
+}
+
+.form-header {
+    margin-bottom: 2rem;
+}
+
+.form-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.form-subtitle {
+    color: #666;
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* Alerta personalizada */
+.custom-alert {
+    border-radius: 15px;
+    border: none;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: start;
+    gap: 0.5rem;
+    animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-10px);
+    }
+
+    75% {
+        transform: translateX(10px);
+    }
+}
+
+/* Formulario */
+.login-form {
+    margin-bottom: 2rem;
+}
+
+.form-group-modern {
+    margin-bottom: 1.5rem;
+}
+
+.form-label-modern {
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 1rem;
+    color: #999;
+    font-size: 1.1rem;
+    z-index: 1;
+}
+
+.form-control-modern {
+    width: 100%;
+    padding: 1rem 1rem 1rem 3rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 15px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+}
+
+.form-control-modern:focus {
+    outline: none;
+    border-color: var(--secondary);
+    background: white;
+    box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
+}
+
+.toggle-password {
+    position: absolute;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.toggle-password:hover {
+    color: var(--primary);
+}
+
+/* Botón de login */
+.btn-login {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(107, 68, 35, 0.3);
+    margin-top: 1rem;
+}
+
+.btn-login:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(107, 68, 35, 0.4);
+}
+
+.btn-login:active {
+    transform: translateY(-1px);
+}
+
+/* Footer del formulario */
+.form-footer {
+    text-align: center;
+}
+
+.divider {
+    position: relative;
+    margin: 2rem 0;
+}
+
+.divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #e0e0e0;
+}
+
+.divider span {
+    position: relative;
+    background: white;
+    padding: 0 1rem;
+    color: #999;
+    font-size: 0.9rem;
+}
+
+.register-link {
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.register-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.register-link a:hover {
+    color: var(--accent);
+    gap: 0.5rem;
+}
+
+.back-home {
+    display: inline-flex;
+    align-items: center;
+    color: #999;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+}
+
+.back-home:hover {
+    color: var(--primary);
+    background: rgba(107, 68, 35, 0.05);
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    .login-card {
+        border-radius: 20px;
+    }
+
+    .login-form-panel {
+        padding: 2rem;
+        min-height: auto;
+    }
+
+    .form-title {
+        font-size: 1.75rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .login-card {
+        border-radius: 15px;
+    }
+
+    .login-form-panel {
+        padding: 1.5rem;
+    }
+
+    .form-title {
+        font-size: 1.5rem;
+    }
+
+    .btn-login {
+        padding: 0.875rem;
+        font-size: 1rem;
+    }
+}

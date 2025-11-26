@@ -1,0 +1,242 @@
+/* ===================================
+   CSS GLOBAL PARA FORMULARIOS (Basado en tu edit_producto.css)
+   =================================== */
+
+/* Breadcrumb */
+.breadcrumb {
+    background: white;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 1rem; /* Añadido */
+}
+.breadcrumb-item a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.breadcrumb-item a:hover {
+    text-decoration: underline;
+}
+.breadcrumb-item.active {
+    color: #666;
+}
+
+/* Cabecera de la Página de Formulario */
+.form-page-header { /* Renombrado de .page-header-edit */
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 2rem;
+}
+.form-page-title { /* Renombrado de .page-title-edit */
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+.form-page-subtitle { /* Renombrado de .page-subtitle-edit */
+    color: #666;
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* Tarjeta Principal del Formulario */
+.form-card { /* Renombrado de .edit-card */
+    background: white;
+    border-radius: 15px;
+    box-shadow: var(--shadow-md);
+    padding: 2.5rem;
+    max-width: 900px; /* Ancho estándar para formularios */
+    margin: 0 auto;
+}
+
+/* Secciones del Formulario */
+.form-section {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid #f0f0f0;
+}
+.form-section:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+.section-title {
+    color: var(--primary);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid var(--secondary);
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Controles de Formulario Personalizados */
+.form-label.required::after {
+    content: ' *';
+    color: #dc3545;
+}
+.form-control-custom,
+.form-select-custom {
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    width: 100%;
+    transition: border-color 0.2s ease;
+    /* Aplicamos a las clases de Bootstrap también */
+    background-color: #fff;
+    color: var(--dark);
+}
+.form-control,
+.form-select {
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    width: 100%;
+    transition: border-color 0.2s ease;
+}
+
+.form-control-custom:focus,
+.form-select-custom:focus,
+.form-control:focus,
+.form-select:focus {
+    outline: none;
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 0.25rem rgba(212, 175, 55, 0.15);
+}
+textarea.form-control-custom,
+textarea.form-control {
+    resize: vertical;
+    min-height: 100px;
+}
+.input-group-text {
+    background: linear-gradient(135deg, rgba(107, 68, 35, 0.1), rgba(212, 175, 55, 0.1));
+    border: 2px solid #e0e0e0;
+    border-right: none;
+    color: var(--primary);
+    font-weight: 600;
+    border-radius: 10px 0 0 10px;
+}
+.input-group .form-control {
+    border-left: none;
+    border-radius: 0 10px 10px 0;
+}
+
+/* Previsualización de Imagen */
+.current-image-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 3px solid #f0f0f0;
+}
+.current-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.image-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+.current-image-container:hover .image-overlay {
+    opacity: 1;
+}
+.image-overlay i {
+    color: white;
+    font-size: 2rem;
+}
+
+/* Ayuda de Formulario */
+.form-help {
+    background: linear-gradient(135deg, rgba(13, 110, 253, 0.05), rgba(13, 110, 253, 0.02));
+    border: 2px solid rgba(13, 110, 253, 0.2);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    color: #084298;
+}
+.form-help i {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+}
+.form-help ul {
+    margin-top: 0.5rem;
+    padding-left: 1.25rem;
+}
+.form-help li {
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+}
+
+/* Acciones del Formulario */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid #f0f0f0;
+}
+.btn-cancel,
+.btn-save {
+    padding: 0.875rem 2rem;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+.btn-cancel {
+    background: #f8f9fa;
+    color: #666;
+    border: 2px solid #dee2e6;
+}
+.btn-cancel:hover {
+    background: #e9ecef;
+    color: #333;
+}
+.btn-save {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    box-shadow: 0 4px 15px rgba(107, 68, 35, 0.3);
+}
+.btn-save:hover {
+    box-shadow: 0 6px 20px rgba(107, 68, 35, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+    .form-page-header { padding: 1.5rem; }
+    .form-page-title { font-size: 1.5rem; }
+    .form-card { padding: 1.5rem; }
+    .form-section { margin-bottom: 2rem; }
+    .current-image-container { width: 150px; height: 150px; margin: 0 auto 1rem; }
+    .form-actions { flex-direction: column-reverse; }
+    .btn-cancel, .btn-save { width: 100%; justify-content: center; }
+}
+@media (max-width: 576px) {
+    .form-page-header .d-flex { flex-direction: column; gap: 1rem; }
+    .form-page-header .btn { width: 100%; }
+}

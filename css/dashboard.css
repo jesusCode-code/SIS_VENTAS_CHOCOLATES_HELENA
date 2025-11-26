@@ -1,0 +1,163 @@
+.dashboard-hero {
+    background: linear-gradient(135deg, rgba(107, 68, 35, 0.05), rgba(212, 175, 55, 0.05));
+    padding: 2.5rem;
+    border-radius: 20px;
+    margin-bottom: 2rem;
+    border: 2px solid rgba(212, 175, 55, 0.2);
+}
+
+.welcome-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.welcome-subtitle {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.welcome-role {
+    font-size: 1rem;
+    color: #666;
+    display: flex;
+    align-items: center;
+}
+
+.badge-role {
+    background: linear-gradient(135deg, var(--secondary), #B8942E);
+    color: var(--dark);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-weight: 700;
+    margin-left: 0.5rem;
+}
+
+.quick-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Tarjetas de Estadísticas */
+.stat-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+}
+
+.stat-card-primary::before { background: linear-gradient(90deg, #6B4423, #8B4513); }
+.stat-card-success::before { background: linear-gradient(90deg, #28a745, #20c997); }
+.stat-card-info::before { background: linear-gradient(90deg, #17a2b8, #138496); }
+.stat-card-warning::before { background: linear-gradient(90deg, #D4AF37, #B8942E); }
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat-card-primary .stat-icon {
+    background: linear-gradient(135deg, rgba(107, 68, 35, 0.1), rgba(107, 68, 35, 0.05));
+    color: #6B4423;
+}
+
+.stat-card-success .stat-icon {
+    background: linear-gradient(135deg, rgba(40, 167, 69, 0.1), rgba(40, 167, 69, 0.05));
+    color: #28a745;
+}
+
+.stat-card-info .stat-icon {
+    background: linear-gradient(135deg, rgba(23, 162, 184, 0.1), rgba(23, 162, 184, 0.05));
+    color: #17a2b8;
+}
+
+.stat-card-warning .stat-icon {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
+    color: #D4AF37;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    color: var(--dark);
+}
+
+.stat-label {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+.stat-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.stat-link:hover {
+    color: var(--accent);
+    gap: 0.5rem;
+}
+
+/* Lista de Accesos Rápidos */
+.list-group-item {
+    border: none;
+    border-left: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.list-group-item:hover {
+    background: rgba(107, 68, 35, 0.05);
+    border-left-color: var(--secondary);
+    padding-left: 1.25rem;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+    .dashboard-hero {
+        padding: 1.5rem;
+    }
+    
+    .welcome-title {
+        font-size: 1.75rem;
+    }
+    
+    .quick-actions {
+        flex-direction: column;
+    }
+    
+    .quick-actions .btn {
+        width: 100%;
+    }
+}
