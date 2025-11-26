@@ -3,7 +3,7 @@
 include 'includes/public_header.php';
 include 'includes/conexion.php'; 
 
-// (Cargamos distritos para el formulario)
+// 1. Cargar Distritos (para el formulario)
 $sql_dist = "SELECT d.IDDISTRITO, d.NOMDISTRITO, p.NOMPROVINCIA 
              FROM DISTRITO d
              JOIN PROVINCIA p ON d.IDPROVINCIA = p.IDPROVINCIA
@@ -13,6 +13,14 @@ $stmt_dist = sqlsrv_query($conn, $sql_dist);
 $distritos = [];
 while ($row = sqlsrv_fetch_array($stmt_dist, SQLSRV_FETCH_ASSOC)) {
     $distritos[] = $row;
+}
+
+// 2. Cargar Tipos de Documento (¡NUEVO!)
+$sql_docs = "SELECT IDTIPO_DOCUMENTO, NOMDOCUMENTO FROM TIPO_DOCUMENTO WHERE ESTADO = '1' ORDER BY NOMDOCUMENTO";
+$stmt_docs = sqlsrv_query($conn, $sql_docs);
+$tipos_documento = [];
+while ($row = sqlsrv_fetch_array($stmt_docs, SQLSRV_FETCH_ASSOC)) {
+    $tipos_documento[] = $row;
 }
 ?>
 
@@ -56,33 +64,46 @@ if (isset($_SESSION['error_registro'])) {
             <h5 class="text-primary mb-3">2. Datos de Contacto y Documento</h5>
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label for="doc_identidad" class="form-label">DNI:</label>
-                    <input type="text" id="doc_identidad" name="doc_identidad" class="form-control" required pattern="[0-9]{8}" title="Debe contener 8 dígitos numéricos">
+                    <label for="idtipo_documento" class="form-label">Tipo de Documento:</label>
+                    <!-- ==================================================
+                         ¡SELECT DINÁMICO AHORA!
+                    ================================================== -->
+                    <select id="idtipo_documento" name="idtipo_documento" class="form-select" required>
+                        <option value="">-- Seleccione --</option>
+                        <?php foreach ($tipos_documento as $doc): ?>
+                            <option value="<?php echo $doc['IDTIPO_DOCUMENTO']; ?>">
+                                <?php echo htmlspecialchars($doc['NOMDOCUMENTO']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
+                <div class="col-md-6 mb-3">
+                    <label for="doc_identidad" class="form-label">Número de Documento:</label>
+                    <input type="text" id="doc_identidad" name="doc_identidad" class="form-control" required>
+                </div>
+            </div>
+            
+            <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="celular" class="form-label">Celular (9 dígitos):</label>
                     <input type="text" id="celular" name="celular" class="form-control" pattern="[0-9]{9}" title="Debe contener 9 dígitos numéricos">
                 </div>
-            </div>
-            <div class="mb-3">
-                <label for="correo" class="form-label">Correo Electrónico:</label>
-                <input type="email" id="correo" name="correo" class="form-control" required>
+                <div class="col-md-6 mb-3">
+                    <label for="correo" class="form-label">Correo Electrónico:</label>
+                    <input type="email" id="correo" name="correo" class="form-control" required>
+                </div>
             </div>
             
             <hr class="my-4">
             <h5 class="text-primary mb-3">3. Datos de Cuenta (Login)</h5>
             <div class="row">
-                <div class="col-md-6 mb-3">
+                <div class="col-md-12 mb-3">
                     <label for="logeo" class="form-label">Nombre de Usuario (Logeo):</label>
                     <input type="text" id="logeo" name="logeo" class="form-control" required placeholder="Ej: jtenorio">
-                </div>
-                 <div class="col-md-6 mb-3">
-                    <label for="idtipo_documento" class="form-label">Tipo de Documento:</label>
-                    <select id="idtipo_documento" name="idtipo_documento" class="form-select" required>
-                        <option value="1">DNI</option> </select>
+                    <div class="form-text">Este será el nombre que usarás para iniciar sesión.</div>
                 </div>
             </div>
-             <div class="row">
+            <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="clave" class="form-label">Contraseña:</label>
                     <input type="password" id="clave" name="clave" class="form-control" required>
