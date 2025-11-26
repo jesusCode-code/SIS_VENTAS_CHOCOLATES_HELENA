@@ -1,18 +1,23 @@
 <?php
-// Evitar que se muestre si solo hay una página
-if ($total_paginas <= 1) {
+// Validaciones de seguridad iniciales
+if (!isset($total_paginas) || $total_paginas <= 1) {
     return;
 }
 
-// Determina el separador de URL (? o &)
-$separator = (parse_url($url_base, PHP_URL_QUERY) == NULL) ? '?' : '&';
+// Asegurar que pagina_actual sea entero
+$pagina_actual = isset($pagina_actual) ? (int)$pagina_actual : 1;
 
-// Configuración del rango
+// CORRECCIÓN PHP 8.2: 
+// Usamos strpos para detectar si hay parámetros. Es más rápido y no falla con nulls.
+$separator = (strpos($url_base, '?') === false) ? '?' : '&';
+
+// Configuración del rango de páginas a mostrar
 $rango = 2;
 ?>
 
 <nav aria-label="Navegación de páginas" class="pagination-container">
     <div class="pagination-wrapper">
+        
         <!-- Info de resultados -->
         <div class="pagination-info-text">
             Mostrando página <strong><?php echo $pagina_actual; ?></strong> de <strong><?php echo $total_paginas; ?></strong>
@@ -54,7 +59,7 @@ $rango = 2;
             
             <!-- LÓGICA INTELIGENTE DE NÚMEROS -->
             <?php
-            // Mostrar primera página si estamos lejos
+            // 1. Mostrar página 1 si estamos lejos del inicio
             if ($pagina_actual > ($rango + 2)) {
                 echo '<li class="pagination-item">
                         <a class="pagination-link" href="' . $url_base . $separator . 'pagina=1">1</a>
@@ -64,23 +69,23 @@ $rango = 2;
                       </li>';
             }
 
-            // Calcular rango de páginas
+            // 2. Calcular rango dinámico
             $inicio_bucle = max(1, $pagina_actual - $rango);
             $fin_bucle = min($total_paginas, $pagina_actual + $rango);
 
-            // Ajustes para equilibrar la visualización
+            // Ajustes visuales para extremos
             if ($pagina_actual <= ($rango + 2)) {
                 $fin_bucle = min($total_paginas, 5 + ($rango * 2));
             }
             if ($pagina_actual >= ($total_paginas - $rango - 1)) {
                 $inicio_bucle = max(1, $total_paginas - (4 + ($rango * 2)));
             }
-
-            // Seguridad extra
+            
+            // Limpieza final de límites
             $inicio_bucle = max(1, $inicio_bucle);
             $fin_bucle = min($total_paginas, $fin_bucle);
 
-            // Mostrar páginas del rango
+            // 3. Ciclo de páginas
             for ($i = $inicio_bucle; $i <= $fin_bucle; $i++): 
             ?>
                 <li class="pagination-item">
@@ -97,7 +102,7 @@ $rango = 2;
             <?php endfor; ?>
             
             <?php
-            // Mostrar última página si estamos lejos
+            // 4. Mostrar última página si estamos lejos del final
             if ($pagina_actual < ($total_paginas - $rango - 1)) {
                 echo '<li class="pagination-item">
                         <span class="pagination-ellipsis">...</span>
@@ -138,16 +143,23 @@ $rango = 2;
 
         </ul>
 
-        <!-- Ir a página específica (opcional) -->
+        <!-- Ir a página específica -->
         <div class="pagination-goto">
+            <!-- Usamos la URL base sin parámetros para el action del form -->
             <form method="GET" action="<?php echo strtok($url_base, '?'); ?>" class="goto-form">
                 <?php
-                // Mantener parámetros GET existentes
-                $query_params = [];
-                parse_str(parse_url($url_base, PHP_URL_QUERY), $query_params);
-                foreach ($query_params as $key => $value) {
-                    if ($key !== 'pagina') {
-                        echo '<input type="hidden" name="' . htmlspecialchars($key) . '" value="' . htmlspecialchars($value) . '">';
+                // -------------------------------------------------------
+                // CORRECCIÓN CRÍTICA DE PHP 8.2 PARA EL ERROR 'parse_str'
+                // -------------------------------------------------------
+                $query_string = parse_url($url_base, PHP_URL_QUERY);
+                
+                // Verificamos explícitamente que no sea null antes de pasarlo a parse_str
+                if ($query_string !== null && $query_string !== '') {
+                    parse_str($query_string, $query_params);
+                    foreach ($query_params as $key => $value) {
+                        if ($key !== 'pagina') {
+                            echo '<input type="hidden" name="' . htmlspecialchars($key) . '" value="' . htmlspecialchars($value) . '">';
+                        }
                     }
                 }
                 ?>
